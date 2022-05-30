@@ -279,6 +279,16 @@
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
         }
+      },
+      "DTW.Repository/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/DTW.Repository.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DTW.Repository.dll": {}
+        }
       }
     }
   },
@@ -682,10 +692,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "DTW.Repository/1.0.0": {
+      "type": "project",
+      "path": "../DTW.Repository/DTW.Repository.csproj",
+      "msbuildProject": "../DTW.Repository/DTW.Repository.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "DTW.Repository >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 3.1.25"
     ]
   },
@@ -722,7 +738,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Thomas BDC\\source\\repos\\LiveCSharpDTW052022\\DTW.Repository\\DTW.Repository.csproj": {
+              "projectPath": "C:\\Users\\Thomas BDC\\source\\repos\\LiveCSharpDTW052022\\DTW.Repository\\DTW.Repository.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
