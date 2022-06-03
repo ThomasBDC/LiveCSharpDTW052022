@@ -12,7 +12,10 @@ namespace DTW.Repository.Links
 
         public LinkRepository(IConfiguration configuration)
         {
-            ConnectionString = configuration.GetConnectionString("DefaultConnection");
+            var builder = new MySqlConnectionStringBuilder(
+                configuration.GetConnectionString("DefaultConnection"));
+            builder.Password = configuration["DbPassword"];
+            ConnectionString = builder.ConnectionString+";";
         }
 
         public List<LinkModel> GetAllLinks()
@@ -21,6 +24,7 @@ namespace DTW.Repository.Links
             MySqlConnection cnn = new MySqlConnection(ConnectionString);
             cnn.Open();
             //Je crée une requête sql
+            
             string sql = @"
                 SELECT 
                     l.idLinks, 

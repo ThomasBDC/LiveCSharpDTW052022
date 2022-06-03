@@ -12,7 +12,10 @@ namespace DTW.Repository.config
 
         public BaseRepository(IConfiguration configuration)
         {
-            ConectionString = configuration.GetConnectionString("DefaultConnection");
+            var builder = new MySqlConnectionStringBuilder(
+                configuration.GetConnectionString("DefaultConnection"));
+                builder.Password = configuration["DbPassword"];
+            ConectionString = builder.ConnectionString + ";";
         }
 
         public MySqlConnection OpenConnexion()
