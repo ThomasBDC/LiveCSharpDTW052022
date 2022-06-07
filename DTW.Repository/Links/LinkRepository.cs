@@ -120,5 +120,44 @@ namespace DTW.Repository.Links
             cnn.Close();
             return monLien;
         }
+
+        public bool EditLink(LinkModel link)
+        {
+            try
+            {
+                //je me connecte à la bdd
+                MySqlConnection cnn = new MySqlConnection(ConnectionString);
+                cnn.Open();
+                //Je crée une requête sql
+
+                string sql = @"
+                UPDATE links
+                SET 
+                    Title = @title,
+                    Description = @description,
+                    Link = @link,
+                    idAuteur = @idUser
+                WHERE 
+                    IdLinks = @idLink
+                ";
+
+                //Executer la requête sql, donc créer une commande
+                MySqlCommand cmd = new MySqlCommand(sql, cnn);
+                cmd.Parameters.AddWithValue("@title", link.Title);
+                cmd.Parameters.AddWithValue("@description", link.Description);
+                cmd.Parameters.AddWithValue("@link", link.URL);
+                cmd.Parameters.AddWithValue("@idUser", link.Auteur.IdUser);
+                cmd.Parameters.AddWithValue("@idLink", link.IdLink);
+
+                var nbRowEdited = cmd.ExecuteNonQuery();
+
+                cnn.Close();
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+        }
     }
 }

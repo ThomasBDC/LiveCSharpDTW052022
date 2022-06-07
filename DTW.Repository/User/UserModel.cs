@@ -6,6 +6,11 @@ namespace DTW.Repository.User
 {
     public class UserModel
     {
+        public UserModel()
+        {
+
+        }
+
         public UserModel(int idUser, string userForeName, string userSurName, string userEmail)
         {
             IdUser = idUser;
@@ -14,7 +19,7 @@ namespace DTW.Repository.User
             UserEmail = userEmail;
         }
 
-        public int IdUser { get; }
+        public int IdUser { get; set; }
         public string UserForeName { get; }
         public string UserSurName { get; }
         public string UserEmail { get; }

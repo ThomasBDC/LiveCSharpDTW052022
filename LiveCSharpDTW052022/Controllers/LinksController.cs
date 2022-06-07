@@ -4,16 +4,19 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using DTW.Repository.User;
 
 namespace LiveCSharpDTW052022.Controllers
 {
     public class LinksController : Controller
     {
         private readonly ILinkRepository _linkRepository;
+        private readonly IUserRepository _userRepository;
 
-        public LinksController(ILinkRepository linkRepository)
+        public LinksController(ILinkRepository linkRepository, IUserRepository userRepository)
         {
             _linkRepository = linkRepository;
+            _userRepository = userRepository;
         }
 
         public IActionResult Index(int perPage = 12, int nbPage = 1, string search = "")
@@ -66,9 +69,32 @@ namespace LiveCSharpDTW052022.Controllers
 
                 EditLinkViewModel vm = new EditLinkViewModel()
                 {
-                    monLien = leLien
+                    monLien = leLien,
+                    lstUsers = _userRepository.GetAllUsers()
                 };
                 return View(vm);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult EditLinkAction(EditLinkViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                vm.lstUsers = _userRepository.GetAllUsers();
+                return View("EditLinkPage", vm);
+            }
+
+            bool isOk = _linkRepository.EditLink(vm.monLien);
+
+            if (isOk)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                vm.lstUsers = _userRepository.GetAllUsers();
+                return View("EditLinkPage", vm);
             }
         }
     }

@@ -1,5 +1,6 @@
 using DTW.Repository.config;
 using DTW.Repository.Links;
+using DTW.Repository.User;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,7 @@ namespace LiveCSharpDTW052022
 
             services.AddTransient<IBaseRepository, BaseRepository>();
             services.AddTransient<ILinkRepository, LinkRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
             services.AddControllersWithViews();
         }

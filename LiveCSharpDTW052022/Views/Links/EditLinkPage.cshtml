@@ -2,10 +2,32 @@
 
 @{
 }
-<h1>Coucou, ici on veut modifier le lien</h1>
-<p>@Model.monLien.Title</p>
-<p>@Model.monLien.Description</p>
-<p>@Model.monLien.URL</p>
-<p>@Model.monLien.Auteur.UserForeName</p>
-<p>@Model.monLien.Auteur.UserSurName</p>
-<p>@Model.monLien.Auteur.UserEmail</p>
+<h1>Modifier un lien</h1>
+
+<form asp-controller="Links" asp-action="EditLinkAction">
+  <input type="hidden" asp-for="monLien.IdLink" />
+  <div class="form-group">
+    <label asp-for="monLien.Title">Titre</label>
+    <input class="form-control" asp-for="monLien.Title">
+    <span asp-validation-for="monLien.Title" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="monLien.Description">Description</label>
+    <input class="form-control" asp-for="monLien.Description">
+  </div>
+  <div class="form-group">
+    <label asp-for="monLien.URL">URL</label>
+    <input class="form-control" asp-for="monLien.URL">
+    <span asp-validation-for="monLien.URL" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="monLien.Auteur.IdUser">Auteur</label>
+    <select class="form-control" asp-for="monLien.Auteur.IdUser">
+        @foreach(var user in Model.lstUsers)
+        {
+            <option selected="@(user.IdUser == Model.monLien.Auteur.IdUser)" value="@user.IdUser">@user.UserSurName @user.UserForeName</option>
+        }
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Modifier</button>
+</form>
