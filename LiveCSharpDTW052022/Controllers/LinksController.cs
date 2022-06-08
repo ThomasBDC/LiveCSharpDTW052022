@@ -89,6 +89,7 @@ namespace LiveCSharpDTW052022.Controllers
 
             if (isOk)
             {
+                TempData["MessageValidation"] = "Le lien a bien été modifié";
                 return RedirectToAction("Index");
             }
             else
@@ -105,6 +106,7 @@ namespace LiveCSharpDTW052022.Controllers
 
             if (isOk)
             {
+                TempData["MessageValidation"] = "Le lien a bien été supprimé";
                 return RedirectToAction("Index");
             }
             else
