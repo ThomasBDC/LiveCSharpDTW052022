@@ -9,5 +9,6 @@ namespace DTW.Repository.Links
         public List<LinkModel> GetAllLinks();
         public LinkModel GetLink(int id);
         public bool EditLink(LinkModel link);
+        public bool DeleteLink(int id);
     }
 }

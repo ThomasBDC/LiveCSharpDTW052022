@@ -1,4 +1,5 @@
-﻿using DTW.Repository.User;
+﻿using DTW.Repository.config;
+using DTW.Repository.User;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
@@ -7,23 +8,16 @@ using System.Text;
 
 namespace DTW.Repository.Links
 {
-    public class LinkRepository : ILinkRepository
+    public class LinkRepository : BaseRepository, ILinkRepository
     {
-        public string ConnectionString { get; set; }
-
-        public LinkRepository(IConfiguration configuration)
+        public LinkRepository(IConfiguration configuration): base (configuration)
         {
-            var builder = new MySqlConnectionStringBuilder(
-                configuration.GetConnectionString("DefaultConnection"));
-            builder.Password = configuration["DbPassword"];
-            ConnectionString = builder.ConnectionString+";";
         }
 
         public List<LinkModel> GetAllLinks()
         {
             //je me connecte à la bdd
-            MySqlConnection cnn = new MySqlConnection(ConnectionString);
-            cnn.Open();
+            var cnn = OpenConnexion();
             //Je crée une requête sql
             
             string sql = @"
@@ -73,8 +67,7 @@ namespace DTW.Repository.Links
         public LinkModel GetLink(int id)
         {
             //je me connecte à la bdd
-            MySqlConnection cnn = new MySqlConnection(ConnectionString);
-            cnn.Open();
+            var cnn = OpenConnexion();
             //Je crée une requête sql
 
             string sql = @"
@@ -126,8 +119,7 @@ namespace DTW.Repository.Links
             try
             {
                 //je me connecte à la bdd
-                MySqlConnection cnn = new MySqlConnection(ConnectionString);
-                cnn.Open();
+                var cnn = OpenConnexion();
                 //Je crée une requête sql
 
                 string sql = @"
@@ -159,5 +151,36 @@ namespace DTW.Repository.Links
                 return false;
             }
         }
+
+        public bool DeleteLink(int id)
+        {
+            try
+            {
+                //je me connecte à la bdd
+                var cnn = OpenConnexion();
+                //Je crée une requête sql
+
+                string sql = @"
+                    DELETE FROM 
+                        links
+                    WHERE 
+                        IdLinks = @idLink
+                    ";
+
+                //Executer la requête sql, donc créer une commande
+                MySqlCommand cmd = new MySqlCommand(sql, cnn);
+                cmd.Parameters.AddWithValue("@idLink", id);
+
+                var nbRowEdited = cmd.ExecuteNonQuery();
+
+                cnn.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
     }
 }

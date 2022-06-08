@@ -20,9 +20,9 @@ namespace DTW.Repository.User
         }
 
         public int IdUser { get; set; }
-        public string UserForeName { get; }
-        public string UserSurName { get; }
-        public string UserEmail { get; }
+        public string UserForeName { get; set; }
+        public string UserSurName { get; set; }
+        public string UserEmail { get; set; }
 
     }
 }
