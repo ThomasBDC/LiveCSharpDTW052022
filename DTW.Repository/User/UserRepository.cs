@@ -40,11 +40,13 @@ namespace DTW.Repository.User
             //Récupérer le retour, et le transformer en objet
             while (reader.Read())
             {
-                UserModel auteur = new UserModel(
-                    Convert.ToInt32(reader["idUser"]),
-                    reader["forename"].ToString(),
-                    reader["surname"].ToString(),
-                    reader["mail"].ToString());
+                UserModel auteur = new UserModel()
+                {
+                    IdUser = Convert.ToInt32(reader["idUser"]),
+                    UserForeName = reader["forename"].ToString(),
+                    UserSurName = reader["surname"].ToString(),
+                    UserEmail = reader["mail"].ToString()
+                };
 
                 maListe.Add(auteur);
             }
