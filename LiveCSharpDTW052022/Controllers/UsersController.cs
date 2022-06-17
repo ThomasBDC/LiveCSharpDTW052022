@@ -1,6 +1,7 @@
 ﻿using DTW.Repository.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,8 +26,7 @@ namespace LiveCSharpDTW052022.Controllers
         // GET: UsersController/Details/5
         public ActionResult Details(int id)
         {
-            List<UserModel> allUsers = _userRepository.GetAllUsers();
-            var monUser = allUsers.FirstOrDefault(user => user.IdUser == id);
+            UserModel monUser = _userRepository.GetById(id);
             return View("DetailsUser", monUser);
         }
 
@@ -39,23 +39,25 @@ namespace LiveCSharpDTW052022.Controllers
         // POST: UsersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(UserModel user)
         {
             try
             {
+                _userRepository.CreateUser(user);
+                TempData["MessageValidation"] = "L'utilisateur a bien été créé";
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception e)
             {
-                return View();
+                TempData["MessageValidation"] = e.Message;
+                return View("CreateUser", user);
             }
         }
 
         // GET: UsersController/Edit/5
         public ActionResult Edit(int id)
         {
-            List<UserModel> allUsers = _userRepository.GetAllUsers();
-            var monUser = allUsers.FirstOrDefault(user => user.IdUser == id);
+            UserModel monUser = _userRepository.GetById(id);
             return View("EditUser", monUser);
         }
 
@@ -77,8 +79,7 @@ namespace LiveCSharpDTW052022.Controllers
         // GET: UsersController/Delete/5
         public ActionResult Delete(int id)
         {
-            List<UserModel> allUsers = _userRepository.GetAllUsers();
-            var monUser = allUsers.FirstOrDefault(user => user.IdUser == id);
+            UserModel monUser = _userRepository.GetById(id);
             return View("DeleteUser", monUser);
         }
 

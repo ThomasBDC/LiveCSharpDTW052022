@@ -1,22 +1,16 @@
 ﻿@model DTW.Repository.User.UserModel
 
 @{
-    ViewData["Title"] = "CreateUser";
+    ViewData["Title"] = "Créer un utilisateur";
 }
 
-<h1>CreateUser</h1>
+<h1>Créer un utilisateur</h1>
 
-<h4>UserModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CreateUser">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="IdUser" class="control-label"></label>
-                <input asp-for="IdUser" class="form-control" />
-                <span asp-validation-for="IdUser" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="UserForeName" class="control-label"></label>
                 <input asp-for="UserForeName" class="form-control" />
@@ -33,14 +27,14 @@
                 <span asp-validation-for="UserEmail" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Créer" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retourner à la liste</a>
 </div>
 
 @section Scripts {

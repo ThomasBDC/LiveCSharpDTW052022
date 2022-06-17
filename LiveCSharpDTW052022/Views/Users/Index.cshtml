@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<DTW.Repository.User.UserModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Liste des utilisateurs";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Créer un utilisateur</a>
 </p>
-<table class="table">
+<table class="table" id="tableUtilisateur">
     <thead>
         <tr>
             <th>
@@ -43,11 +43,23 @@
                 @Html.DisplayFor(modelItem => item.UserEmail)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.IdUser }) |
-                @Html.ActionLink("Details", "Details", new { id=item.IdUser }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.IdUser })
+                @Html.ActionLink("Modifier", "Edit", new { id=item.IdUser }) |
+                @Html.ActionLink("Détails", "Details", new { id=item.IdUser }) |
+                @Html.ActionLink("Supprimer", "Delete", new { id=item.IdUser })
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+
+@section Scripts{
+    <script>
+        $(document).ready( function () {
+            $('#tableUtilisateur').DataTable();
+        } );
+    </script>
+}
+
+@section LesFichiersCss{
+}
